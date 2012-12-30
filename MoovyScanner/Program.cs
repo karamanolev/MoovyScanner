@@ -18,12 +18,12 @@ namespace MoovyScanner
             try
             {
                 ExtractorConfig config;
-                bool showUI = false;
+                bool showUI;
 
                 if (File.Exists(ExtractorConfig.DefualtConfigPath))
                 {
                     config = new ExtractorConfig(ExtractorConfig.DefualtConfigPath);
-                    showUI = args.Contains("-e");
+                    showUI = !args.Contains("-q");
                 }
                 else
                 {
