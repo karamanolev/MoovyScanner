@@ -21,6 +21,8 @@ namespace MoovyScanner
             this.textExtensions.Text = string.Join(Environment.NewLine, this.Config.Extensions);
             this.textOutput.Text = this.Config.Output;
             this.textRegex.Text = this.Config.Regex;
+            this.textUsername.Text = this.Config.Username;
+            this.textPassword.Text = this.Config.Password;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -35,6 +37,8 @@ namespace MoovyScanner
             this.Config.Extensions = new List<string>(this.textExtensions.Text.Split(newLineSplit, StringSplitOptions.RemoveEmptyEntries).Select(ext => this.FixExtension(ext)));
             this.Config.Regex = this.textRegex.Text;
             this.Config.Output = this.textOutput.Text;
+            this.Config.Username = this.textUsername.Text;
+            this.Config.Password = this.textPassword.Text;
 
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -48,6 +52,15 @@ namespace MoovyScanner
                 e = "." + e;
             }
             return e;
+        }
+
+        private void btnAddInput_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                this.textInputs.Text += folderBrowser.SelectedPath + Environment.NewLine;
+            }
         }
     }
 }

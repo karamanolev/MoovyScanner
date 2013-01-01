@@ -20,7 +20,7 @@ namespace MoovyScanner
 
         public void Process()
         {
-            using (OutputWriter writer = new OutputWriter(this.config.Output))
+            using (OutputWriter writer = new OutputWriter(this.config.Output, this.config.Username, this.config.Password))
             {
                 foreach (string inputFile in this.EnumerateInputFiles())
                 {
@@ -43,6 +43,7 @@ namespace MoovyScanner
                         Logger.Log("File skipped (" + inputFile + "): " + ex);
                     }
                 }
+                Console.WriteLine("Uploading...");
             }
         }
 
