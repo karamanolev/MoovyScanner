@@ -12,7 +12,7 @@ namespace MoovyScanner
 
         private static readonly List<string> defaultInputPaths = new List<string>()
         {
-            "nfo","xml","desktop","url","txt"
+            "nfo","xml","desktop","url","txt", "webloc"
         };
         private static readonly string defaultRegex = @"imdb\.(.*)\/title\/tt(?<imdb_id>[0-9]*)";
         private static readonly string defaultOutput = "Output.csv";
