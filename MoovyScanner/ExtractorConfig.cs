@@ -15,7 +15,8 @@ namespace MoovyScanner
             "nfo","xml","desktop","url","txt", "webloc"
         };
         private static readonly List<string> defaultRegexes = new List<string>() {
-            @"imdb\.(.*)\/title\/tt(?<imdb_id>[0-9]*)"
+            @"imdb\.(.*)\/title\/tt(?<imdb_id>[0-9]*)",
+            @"\<id\>tt(?<imdb_id>[0-9]*)\<\/id\>"
         };
         private static readonly string defaultOutput = "http://moovy.at/";
 
