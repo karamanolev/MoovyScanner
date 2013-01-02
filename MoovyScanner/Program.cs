@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace MoovyScanner
@@ -49,7 +50,7 @@ namespace MoovyScanner
                 Processor processor = new Processor(config);
                 processor.Process();
 
-                Console.WriteLine("Complete.");
+                Thread.Sleep(3000);
             }
             catch (Exception ex)
             {

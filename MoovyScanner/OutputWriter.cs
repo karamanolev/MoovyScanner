@@ -59,6 +59,8 @@ namespace MoovyScanner
 
         public void Dispose()
         {
+            Console.WriteLine("Uploading...");
+
             string content = builder.ToString();
 
             string boundary = "--" + this.random.Next(1000000000, 2000000000);
@@ -83,6 +85,7 @@ namespace MoovyScanner
             using (StreamReader reader = new StreamReader(response.GetResponseStream()))
             {
                 string responseString = reader.ReadToEnd();
+                Console.WriteLine("Result: " + responseString);
             }
         }
     }

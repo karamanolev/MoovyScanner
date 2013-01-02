@@ -10,12 +10,12 @@ namespace MoovyScanner
     class Processor
     {
         private ExtractorConfig config;
-        private Regex regex;
+        private Regex[] regexes;
 
         public Processor(ExtractorConfig config)
         {
             this.config = config;
-            this.regex = new Regex(config.Regex, RegexOptions.None);
+            this.regexes = this.config.Regexes.Select(r => new Regex(r, RegexOptions.None)).ToArray();
         }
 
         public void Process()
@@ -43,18 +43,21 @@ namespace MoovyScanner
                         Logger.Log("File skipped (" + inputFile + "): " + ex);
                     }
                 }
-                Console.WriteLine("Uploading...");
             }
         }
 
         private IEnumerable<string> EnumerateImdbIds(string inputFile)
         {
             string contents = File.ReadAllText(inputFile, Encoding.UTF8);
-            Match match = this.regex.Match(contents);
-            Group group = match.Groups["imdb_id"];
-            foreach (Capture capture in group.Captures)
+
+            foreach (Regex regex in this.regexes)
             {
-                yield return capture.Value;
+                Match match = regex.Match(contents);
+                Group group = match.Groups["imdb_id"];
+                foreach (Capture capture in group.Captures)
+                {
+                    yield return capture.Value;
+                }
             }
         }
 

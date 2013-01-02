@@ -14,13 +14,15 @@ namespace MoovyScanner
         {
             "nfo","xml","desktop","url","txt", "webloc"
         };
-        private static readonly string defaultRegex = @"imdb\.(.*)\/title\/tt(?<imdb_id>[0-9]*)";
+        private static readonly List<string> defaultRegexes = new List<string>() {
+            @"imdb\.(.*)\/title\/tt(?<imdb_id>[0-9]*)"
+        };
         private static readonly string defaultOutput = "http://moovy.at/";
 
         public List<string> InputPaths { get; set; }
         public List<string> Extensions { get; set; }
         public string Output { get; set; }
-        public string Regex { get; set; }
+        public List<string> Regexes { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
 
@@ -29,7 +31,7 @@ namespace MoovyScanner
             this.InputPaths = new List<string>();
             this.Extensions = new List<string>(defaultInputPaths);
             this.Output = defaultOutput;
-            this.Regex = defaultRegex;
+            this.Regexes = new List<string>(defaultRegexes);
             this.Username = "";
             this.Password = "";
         }
@@ -39,7 +41,7 @@ namespace MoovyScanner
             this.InputPaths = new List<string>();
             this.Extensions = new List<string>();
             this.Output = "";
-            this.Regex = defaultRegex;
+            this.Regexes = new List<string>();
             this.Username = "";
             this.Password = "";
 
@@ -61,7 +63,7 @@ namespace MoovyScanner
                         this.Output = value;
                         break;
                     case "Regex":
-                        this.Regex = value;
+                        this.Regexes.Add(value);
                         break;
                     case "Username":
                         this.Username = value;
@@ -89,7 +91,10 @@ namespace MoovyScanner
                     writer.WriteLine("Extension=" + extension);
                 }
                 writer.WriteLine("Output=" + this.Output);
-                writer.WriteLine("Regex=" + this.Regex);
+                foreach (string regex in this.Regexes)
+                {
+                    writer.WriteLine("Regex=" + regex);
+                }
                 writer.WriteLine("Username=" + this.Username);
                 writer.WriteLine("Password=" + this.Password);
             }
