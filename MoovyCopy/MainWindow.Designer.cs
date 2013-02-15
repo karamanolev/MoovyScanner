@@ -29,14 +29,17 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listInputFiles = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.listFiles = new System.Windows.Forms.ListBox();
+            this.labelTotalSize = new System.Windows.Forms.Label();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textTarget = new System.Windows.Forms.TextBox();
+            this.btnBrowseTarget = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -48,16 +51,19 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "List files to be processed (drag && drop):";
             // 
-            // listBox1
+            // listInputFiles
             // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.listInputFiles.AllowDrop = true;
+            this.listInputFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.IntegralHeight = false;
-            this.listBox1.Location = new System.Drawing.Point(12, 25);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(389, 130);
-            this.listBox1.TabIndex = 1;
+            this.listInputFiles.FormattingEnabled = true;
+            this.listInputFiles.IntegralHeight = false;
+            this.listInputFiles.Location = new System.Drawing.Point(12, 25);
+            this.listInputFiles.Name = "listInputFiles";
+            this.listInputFiles.Size = new System.Drawing.Size(385, 130);
+            this.listInputFiles.TabIndex = 1;
+            this.listInputFiles.DragDrop += new System.Windows.Forms.DragEventHandler(this.listInputFiles_DragDrop);
+            this.listInputFiles.DragEnter += new System.Windows.Forms.DragEventHandler(this.listInputFiles_DragEnter);
             // 
             // label2
             // 
@@ -68,80 +74,116 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Files to be copied:";
             // 
-            // listBox2
+            // listFiles
             // 
-            this.listBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.listFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.IntegralHeight = false;
-            this.listBox2.Location = new System.Drawing.Point(12, 174);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(389, 172);
-            this.listBox2.TabIndex = 3;
+            this.listFiles.FormattingEnabled = true;
+            this.listFiles.IntegralHeight = false;
+            this.listFiles.Location = new System.Drawing.Point(12, 174);
+            this.listFiles.Name = "listFiles";
+            this.listFiles.Size = new System.Drawing.Size(385, 172);
+            this.listFiles.TabIndex = 3;
             // 
-            // label3
+            // labelTotalSize
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 349);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Total size:";
+            this.labelTotalSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelTotalSize.AutoSize = true;
+            this.labelTotalSize.Location = new System.Drawing.Point(12, 388);
+            this.labelTotalSize.Name = "labelTotalSize";
+            this.labelTotalSize.Size = new System.Drawing.Size(83, 13);
+            this.labelTotalSize.TabIndex = 4;
+            this.labelTotalSize.Text = "Total size: 0.0 B";
             // 
-            // button1
+            // btnClose
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(326, 394);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.Location = new System.Drawing.Point(322, 433);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.TabIndex = 5;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // button2
+            // btnStart
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(245, 394);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnStart.Location = new System.Drawing.Point(241, 433);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.TabIndex = 6;
+            this.btnStart.Text = "Start";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // button3
+            // btnClear
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.Location = new System.Drawing.Point(12, 394);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 7;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClear.Location = new System.Drawing.Point(12, 433);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(75, 23);
+            this.btnClear.TabIndex = 7;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // progressBar1
             // 
             this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(12, 365);
+            this.progressBar1.Location = new System.Drawing.Point(12, 404);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(389, 23);
+            this.progressBar1.Size = new System.Drawing.Size(385, 23);
             this.progressBar1.TabIndex = 8;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 349);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(84, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Target directory:";
+            // 
+            // textTarget
+            // 
+            this.textTarget.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textTarget.Location = new System.Drawing.Point(12, 365);
+            this.textTarget.Name = "textTarget";
+            this.textTarget.Size = new System.Drawing.Size(304, 20);
+            this.textTarget.TabIndex = 10;
+            // 
+            // btnBrowseTarget
+            // 
+            this.btnBrowseTarget.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBrowseTarget.Location = new System.Drawing.Point(322, 363);
+            this.btnBrowseTarget.Name = "btnBrowseTarget";
+            this.btnBrowseTarget.Size = new System.Drawing.Size(75, 23);
+            this.btnBrowseTarget.TabIndex = 11;
+            this.btnBrowseTarget.Text = "Browse";
+            this.btnBrowseTarget.UseVisualStyleBackColor = true;
+            this.btnBrowseTarget.Click += new System.EventHandler(this.btnBrowseTarget_Click);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(413, 429);
+            this.ClientSize = new System.Drawing.Size(409, 468);
+            this.Controls.Add(this.btnBrowseTarget);
+            this.Controls.Add(this.textTarget);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.listBox2);
+            this.Controls.Add(this.btnClear);
+            this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.labelTotalSize);
+            this.Controls.Add(this.listFiles);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.listInputFiles);
             this.Controls.Add(this.label1);
             this.Name = "MainWindow";
             this.Text = "Moovy Copy";
@@ -153,14 +195,17 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listInputFiles;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ListBox listFiles;
+        private System.Windows.Forms.Label labelTotalSize;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textTarget;
+        private System.Windows.Forms.Button btnBrowseTarget;
     }
 }
 
