@@ -33,6 +33,12 @@ namespace MoovyScanner
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(this.textUsername.Text) || string.IsNullOrWhiteSpace(this.textPassword.Text))
+            {
+                MessageBox.Show("Please fill your username and password.");
+                return;
+            }
+
             this.Config.InputPaths = new List<string>(this.textInputs.Text.Split(newLineSplit, StringSplitOptions.RemoveEmptyEntries));
             this.Config.Extensions = new List<string>(this.textExtensions.Text.Split(newLineSplit, StringSplitOptions.RemoveEmptyEntries).Select(ext => this.FixExtension(ext)));
             this.Config.Regexes = new List<string>(this.textRegexes.Text.Split(newLineSplit, StringSplitOptions.RemoveEmptyEntries));
