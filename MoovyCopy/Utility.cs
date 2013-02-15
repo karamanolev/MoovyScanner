@@ -24,5 +24,25 @@ namespace MoovyCopy
                 return result.ToString("0.0") + " " + bytesToStringSuffixes[suffix];
             }
         }
+
+        public static string FixFilename(string name)
+        {
+            if (name == null)
+            {
+                return "";
+            }
+
+            return name
+                .Replace("/", "")
+                .Replace("\\", "")
+                .Replace(":", " ")
+                .Replace("|", "")
+
+                .Replace("*", "")
+                .Replace("<", "")
+                .Replace(">", "")
+                .Replace("?", "")
+                .Replace("\"", "");
+        }
     }
 }

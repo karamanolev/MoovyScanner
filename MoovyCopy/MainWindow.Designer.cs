@@ -187,6 +187,7 @@
             this.Controls.Add(this.label1);
             this.Name = "MainWindow";
             this.Text = "Moovy Copy";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
